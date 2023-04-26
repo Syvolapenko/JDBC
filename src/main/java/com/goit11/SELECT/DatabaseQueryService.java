@@ -7,7 +7,9 @@ import ex.MaxProjectCountClient;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class DatabaseQueryService {
@@ -25,29 +27,27 @@ public class DatabaseQueryService {
             ")";
     public Database database;
 
-    LinkedList<String> list = new LinkedList<String>();
-    MaxProjectCountClient maxProjectCountClient;
 
 
     public DatabaseQueryService(Database database){
         super();
         this.database = database;
     }
-    public void findMaxProjectsClient(){
+    public List<MaxProjectCountClient> findMaxProjectsClient(){
+        List<MaxProjectCountClient> list = new ArrayList<>();
         try (Connection connection = database.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery(sqlSelect);
             while(rs.next()){
                 String nameWorker  = rs.getString("name");
                 int projectCount  = rs.getInt("PROJECT_COUNT");
-                maxProjectCountClient = new MaxProjectCountClient(nameWorker,projectCount);
-                list.add(maxProjectCountClient.toString());
-                for(String s : list)
-                    System.out.println(s);
+                MaxProjectCountClient variant = new MaxProjectCountClient(nameWorker,projectCount);
+                list.add(variant);
             }
             rs.close();
         } catch (Exception e) {
             throw new DbInitException("Db init failed", e);
         }
+        return list;
     }
 }
