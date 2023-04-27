@@ -8,18 +8,20 @@ import com.goit11.resource.reading.Reader;
 import ex.LongestProject;
 import ex.MaxProjectCountClient;
 import ex.MaxSalaryWorker;
+import ex.YoungestEldestWorkers;
 
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
         Database database = Database.getInstance();
-        System.out.println(database.check());
 //        List<MaxProjectCountClient> maxProjectCountClients = new DatabaseQueryService(database).findMaxProjectsClient();
 //        System.out.println(maxProjectCountClients);
 //        List<MaxSalaryWorker> maxSalaryWorkers = new DatabaseQueryService(database).findMaxSalaryWorker();
 //        System.out.println(maxSalaryWorkers);
-        List<LongestProject>longestProjects = new DatabaseQueryService(database).findLongestProject();
-        System.out.println(longestProjects);
+//        List<LongestProject>longestProjects = new DatabaseQueryService(database).findLongestProject();
+//        System.out.println(longestProjects);
+        List<YoungestEldestWorkers>youngestEldestWorkers = new DatabaseQueryService(database).findYoungestEldestWorkers();
+        System.out.println(youngestEldestWorkers);
     }
     }
