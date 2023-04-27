@@ -16,6 +16,13 @@ public class DatabasePopulateService {
         this.reader = reader;
     }
 
+    public static void main(String[] args) {
+        Database database2 = Database.getInstance();
+        Reader reader2 = new Reader("sql/populate_db.sql");
+        DatabasePopulateService databasePopulateService = new DatabasePopulateService(database2,reader2);
+        databasePopulateService.populate();
+    }
+
     public void populate(){
         String sql = reader.read();
         try (Connection connection = database.getConnection();

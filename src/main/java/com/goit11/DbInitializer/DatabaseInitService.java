@@ -16,7 +16,13 @@ public class DatabaseInitService {
         this.reader = reader;
     }
 
-        public void init()  {
+    public static void main(String[] args) {
+        Database database1 = Database.getInstance();
+        Reader reader1 = new Reader("sql/init_db.sql");
+        DatabaseInitService databaseInitService = new DatabaseInitService(database1,reader1);
+        databaseInitService.init();
+    }
+        public void init () {
             String sql = reader.read();
             try (Connection connection = database.getConnection();
                  Statement statement = connection.createStatement()) {
@@ -24,5 +30,5 @@ public class DatabaseInitService {
             } catch (Exception e) {
                 throw new DbInitException("Db init failed", e);
             }
-    }
+        }
 }
